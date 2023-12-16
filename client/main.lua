@@ -125,27 +125,6 @@ RegisterNUICallback('closeMenu', function()
     FreezeEntityPosition(playerPed, false)
 end)
 
-RegisterNUICallback('closeMenu2', function()
-    if not nui then return end
-    nui = false
-    local playerPed = PlayerPedId()
-    local citizenid = exports['qbr-core']:GetPlayerData().citizenid
-    exports['qbr-core']:TriggerCallback('qbr-multicharacter:server:getSkin', function(data)
-        if data then
-            LoadSkin(playerPed, data.skin)
-            LoadClothes(playerPed, data.clothes, false)
-        else
-            LoadSkin(playerPed, SkinData)
-            LoadClothes(playerPed, ClothesData, false)
-        end
-        SetNuiFocus(false, false)
-        RenderScriptCams(false, true, 250, 1, 0)
-        DestroyCam(Camera, false)
-        ClothingRoomTransition(BeforePosition, false)
-        FreezeEntityPosition(playerPed, false)
-    end, citizenid)
-end)
-
 RegisterNUICallback('save', function()
     if not nui then return end
     local playerPed = PlayerPedId()
@@ -355,7 +334,7 @@ RequestAndSetModel = function(model)
     end
     Citizen.Wait(200)
     Citizen.InvokeNative(0xED40380076A31506, PlayerId(), requestedModel, false)
-    Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
+    Citizen.InvokeNative(0x0BFA1BD465CDFEFD, PlayerPedId())
     Citizen.Wait(200)
     Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x1D4C528A, 0)
     Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)
